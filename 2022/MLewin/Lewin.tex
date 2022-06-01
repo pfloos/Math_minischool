@@ -1,0 +1,501 @@
+\documentclass{article}
+\usepackage{xcolor,microtype,amsthm,amscd,amsmath,amssymb,amsfonts,physics,siunitx}
+\usepackage{mathpazo,ragged2e,hyperref}
+
+\setlength{\parindent}{0pt}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{definition}{Definition}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{example}{Example}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\II}{\mathbb{I}}
+\newcommand{\NN}{\mathbb{N}}
+
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cE}{\mathcal{E}}
+
+\newcommand{\Id}{\text{Id}}
+\newcommand{\hK}{\Hat{K}}
+
+\newcommand{\eps}{\epsilon}
+\newcommand{\sig}{\sigma}
+\newcommand{\la}{\lambda}
+
+\renewcommand{\sp}[2]{\langle #1,#2 \rangle}
+\newcommand{\T}[1]{#1^{\intercal}}
+
+\title{Notes on Mathieu Lewin's lecture: ``Mathematical description of solids''}
+\author{badly copied by Pierre-Fran\c{c}ois Loos}
+
+\begin{document}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Spectral theory}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+A bit of history about the spectral theory in infinite dimension...
+\begin{itemize}
+  \item 1906: Hilbert studied
+  $$ \int_0^1 K(x,y) f(y) dy - \la f(x) = g(x) $$
+  $K$ (symmetric) and $g$ are given, and $f$ is unknown.
+  You can play with $\la$.
+  Let us pass to a Fourier series, i.e., $\hK(k,k') \text{ with } k \in 2\pi \ZZ $.
+  He decided to study infinite matrices.
+  \item In 1906 paper, he explained how to diagonalize, introduced the name "spectrum" and studied continuous spectrum.
+  \item 1925-26: Born, Heisenberg, Jordan (learnt from Hilbert) and they were at the same place in G\"ottigen.
+  \item 1926: Hilbert started to teach quantum mechanics and von Neumann arrives as a postdoc.
+  \item 1927: Dirac tries to formulate quantum mechanics (with theory of transformations) using kernels and introducing the famous delta function $\delta(x-y)$.
+  \item 1929-32: von Neumann invented the concept of Hilbert space and the theory of unbounded operators. 
+  The main message of his work was that infinite matrices must be put to the trash, and one must rely on unbounded operators.
+\end{itemize}
+
+\begin{definition} 
+  Let $\cH$ be an abstract Hilbert space.
+  $\sp{}{}$ is a scalar product that is antilinear on the left and linear on the right
+  $\sp{v}{v} > 0 \ \forall v \neq 0$ and $\sp{v}{w} \ge \overline{\sp{w}{v}}$.
+\end{definition} 
+
+\begin{example} 
+  $\cH = \CC^d \text{ and } \sp{x}{y} = x^* y = \T{\bar{x}} y $
+  $$ \ell^2(\ZZ) = \qty{ (c_j)_{j \in \ZZ} \colon \sum \abs{g}^2 < \infty } $$
+  In the definition of the Hilbert space we require that $\cH$ be complete (i.e., there is no hole) 
+  $$ (x_n) \in \cH \qq{such that} \sum_n \norm{x_n} = \sqrt{\sp{x_n}{x_n}} < \infty \Rightarrow \sum_n x_n \text{ is convergent} $$
+  An operator is a linear function $A$ defined on a domain $D(A) \subset \cH$ dense in $\cH$
+  $$ f \in D(A) \mapsto A f \in \cH $$
+\end{example} 
+
+\begin{definition} 
+  An operator $A$ is said to be bounded if there exists a constant $C$ such that 
+  $ \norm{A v} \le C \norm{v} \ \forall v \in D(A)$ $\Leftrightarrow$ $\norm{A v}/\norm{v} \le C$ $\Leftrightarrow$ $A$ is bounded on the unit sphere 
+  $$ v_n \to v \text{ with } v \in D(A) $$
+  $$\norm{A v_n - A v} = \norm{A(v_n - v)} \le C \norm{v_n -v} \to  0 $$
+\end{definition} 
+
+\begin{proposition} 
+  Let $A$ be a bounded operator. 
+  Therefore, it admits a unique extension to the whole space $\cH$ which is again bounded.
+  A bounded operator is fully characterized by its infinite matrix $\sp{e_n}{A e_m}$ for any orthonormal basis $(e_n)$.
+  Note that Hilbert is right to use infinite matrix if one looks at bounded operators (but not unbounded).
+\end{proposition} 
+
+\begin{proof} 
+  Let $v \in \cH$ and $v_n \in D(A)$ with $v_n \to v$ and thus $\norm{v_n - v} \to 0$.
+  One can assume $\norm{v_n - v} \le 1/4^n$.
+  $v = \sum_{n=0}^\infty (v_{n+1} - v_n)$ with $v_0 = 0$ is a convergent series
+  $$\norm{v_{n+1} - v_n} \le \norm{v_{n+1} - v} + \norm{v - v_n} \le 1/4^{n+1} + 1/4^n \le 1/2^n$$
+  $Av$ has to be convergent and $\lim_{N\to\infty} A = v_N$
+  $$A v_N = \sum_{n=0}^{N-1} A(v_{n+1} - v_n)$$
+  $$ \sum \norm{A(v_{n+1} - v_n)} \le C \sum \norm{v_{n+1} - v_n} $$
+  $Av$ exists and is complete. 
+  It is given by $\sum A (v_{n+1} - v_n) \in \cH$.
+\end{proof} 
+
+\begin{definition} 
+  The norm of a bounded operator is the smallest constant $C$
+  $$ \norm{A} = \sup_{\substack{v \in \cH \\ \norm{v}=1}} \norm{Av} $$
+  The set of bounded operator is also complete for this norm.
+  Let $A$ with $\norm{A} \le 1$ $\Rightarrow$ $1 - A$ is invertible as $(1 - A)^{-1} = \sum_{n=0}^\infty A^n$.
+  Note that the identity is simply written as $1$ in the following.
+\end{definition} 
+
+\begin{definition} 
+  An operator $A$ defined on $D(A)$ is unbounded when it is not bounded i.e. 
+  $$\sup_{\substack{v \in D(A) \\ \norm{v} = 1}} \norm{Av} = \infty$$
+  Most operator arising in quantum mechanics are unbounded. 
+  For example, the momentum, etc.
+\end{definition} 
+
+\begin{definition}[spectrum] 
+  The resolvent set is the set of all complex numbers $z \in \CC$ for which the equation $(A - z) f = g$ 
+  admits a unique solution $f$ for all $g \in \cH$ with $f$ depending continuously on $g$ 
+  $\Leftrightarrow$ there exists an inverse $(A - z)^{-1} \colon \cH \to D(A)$ which is bounded.
+  \begin{align*}
+  	A - z \colon D(A) & \xrightarrow{\phantom{(A-z)^{-1}}} \cH \\
+                 D(A) & \xleftarrow{(A-z)^{-1}} \cH \\
+  \end{align*}
+  The complementary set in $\CC$ is called the spectrum denoted by $\sig(A)$.
+\end{definition} 
+
+\begin{definition} 
+  $\la$ is an eigenvalue when $(A-\la) f = 0$ although $f \neq 0$ (we have no uniqueness for the eigenvalues).
+\end{definition} 
+
+\begin{definition} 
+  Everything in the spectrum which is not an eigenvalue is called the continuous spectrum.
+\end{definition} 
+
+\begin{remark} 
+  if $A$ is bounded then the spectrum of $A$ is also bounded.
+  $\sig(A) \subset D(O,\norm{A})$ where $O$ is the disk centered at origin of radius $\norm{A}$.
+  For $ \abs{z} > \norm{A}$ and $A - z = - z (-A/z + 1)$, $\norm{A/z} = \norm{A}/z < 1$, so it is invertible with inverse by $(1 - A)^{-1} = \sum_{n=0}^\infty A^n$.
+\end{remark} 
+
+\begin{lemma} 
+  The resolvent set is "open". 
+  $z_0 \in \rho(A)$ (resolvents set) then $D(z_0,\norm{(A - z_0)^{-1}}) \subset \rho(A)$.
+  $$ A - z = A - z_0 + z_0 - z = (1 - (z-z_0)(A-z_0)^{-1}))(A-z_0) $$
+  $$ \abs{z - z_0} \norm{(A-z_0)^{-1}} < 1 $$
+\end{lemma} 
+
+\begin{definition}[Self-adjointness]
+  $A$ is a $d \times d$ matrix is hermitian if $\T{\bar{A}} = A$
+  $$ \sp{x}{A y} = x^* A y = \sp{A x}{y} $$
+\end{definition} 
+
+\begin{definition}
+  We say that $A$ is symmetric when $\sp{Ax}{y} = \sp{x}{Ay} \ \forall (x,y) \in D(A)$
+\end{definition} 
+
+\begin{example} 
+  For $A = -i \dv{}{x}$ on $]0,1[$ and $\cH = L^2(]0,1[) = \qty{f \colon \int_0^1 \abs{f}^2 <\infty }$.
+  Be definition, $\sp{f}{g} = \int_0^1 \overline{f}(x) g(x) dx$. 
+  Let $D(A) = C^1([0,1])$, then
+  $$ \sp{f}{Ag} - \sp{Af}{g} = \int \overline{f}(x) i g'(x) dx - \int_0^1 - i \overline{f'}(x) g(x) dx = -i \qty[ g(1) \overline{f}(1) - g(0) \overline{f}(0) ] $$
+  This is not symmetric!
+  \\
+  For $D(A_2) = { f \in C^1([0,1]) \colon f(0) = f(1) = 0 }$ (Dirichlet)
+  This is symmetric and $\sig(A_2) = \CC$.
+\end{example} 
+
+\begin{theorem}
+  Let A be a symmetric operator. 
+  Then, the spectrum of $A$, $\sig(A)$, is either 
+  \begin{enumerate}
+    \item $\CC$
+    \item $\CC_+ = \qty{ z \colon \Im{z} \ge 0 }$ 
+    \item $\CC_- = \qty{ z \colon \Im{z} \le 0 }$ 
+    \item $\subset \RR$
+  \end{enumerate}
+\end{theorem}
+
+\begin{definition} 
+  We say that $A$ is self-adjoint when it is symmetric and its spectrum is real (4th case).
+\end{definition}
+
+\begin{proof} 
+  $A$ symmetric means $z = a + i b$
+  $$ \norm{(A-z) v}^2 = \norm{(A - a - i b) v}^2 = \sp{(A - a - i b)v}{(A - a - i b)v} = \norm{(A - a)v}^2 + b^2 \norm{v}^2 $$
+  $$ \norm{(A-z)v} \ge \abs{b} \norm{v} $$
+  If the inverse exists, then $\norm{w} \ge \abs{b} \norm{(A-z)^{-1} w}$ and $\norm{(A-z)^-1} \le 1/\abs{b}$.
+\end{proof}
+
+\begin{remark}[Consequences of the theorem and definitions]
+  \begin{enumerate}
+    \item If $A$ is self-adjoint on a domain $D(A)$ then it cannot be self-adjoint on a smaller domain $D \subsetneq D(A)$ and $\sig(A_{|D}) = \CC$.
+    Let $A$ such as $i \in \rho(A)$, $A - i$ is invertible from $D(A) \to \cH$ and $\forall g \ \exists! f \ (A - i) f = g$ $\Rightarrow i \in \sig(A_{|D})$
+    \item If $A$ has $\sig(A) = \CC_{\pm}$ then no self-adjoint extension and $\sig(A_{|D}) = \CC$ if $D \subsetneq D(A)$
+    \item If $A$ is self-adjoint then "$D(A)$ is complete" $\Leftrightarrow$ "$A$ is closed".
+    $v_n \in D(A) \to v$ and $A v_n \to w$ $\Rightarrow$ $v \in D(A)$ and $A v = w$.
+    $A v_n = (A - i) v_n + i v_n$ and $v_n = (A - i)^{-1} [Av_n - i v_n]$, therefore $v = (A - i)^{-1} (w - i v) \in D(A)$
+  \end{enumerate}
+\end{remark}
+
+\begin{theorem}
+  Let $A$ be a self-adjoint operator $D(A)$. 
+  Then, $\la \in \RR$, $\la \in \sig(A)$ $\Leftrightarrow$ it exists a sequence $v_n \in D(A)$ with $\norm{v_n} = 1$ such that $(A - \la) v_n \to 0$ (quasi-eigenvalue).
+\end{theorem}
+
+\begin{proof} 
+  ($\Leftarrow$) by contradiction. If $(A - \la)^-1$ exists, then it cannot be bounded 
+  $1 = \norm{v_n} = \norm{(A - \la)^-1 (A - \la) v_n} \le C \norm{(A - \la) v_n} \to 0$ (contradiction).
+  \\
+  ($\Rightarrow$) by contraposition
+  $\nexists v_n$ such that $\inf_{v\in D(A),\norm{v} = 1} \norm{(A - \la)v} = C > 0$.
+  Because $\norm{(A - \la) v} \ge C \norm{v} \ \forall v \in D(A)$, this implies $\la \notin \sig(A)$.
+  $\norm{(A - \la - i \eps)v}^2 = \norm{(A - \la)v}^2 + \eps^2 \norm{v}^2 \ge (c^2 +\eps^2) \norm{v}^2$ 
+  $\Rightarrow$ $\norm{(A - \la - i \eps)^-1} \le 1/C$ 
+  $\Rightarrow$ $\la \notin \sig(A)$
+\end{proof} 
+
+\begin{example} 
+  momentum $P$ on $]0,1[$ which fulfils $P f = - i f'$.
+  What is the domain? 
+  Note that we have to be able to solve $-i f' \pm i f = g \ \forall g \in L^2(]0,1[)$ that is defined as $(P \pm i)^{-1}$.
+  Let $P_{min} f = - i f'$ with $D(P_{min}) = \qty{ f \in C^1 \colon f(0) = f(1) = 0 }$.
+  Let $P_{max} f = - i f'$ with $D(P_{max}) = \qty{ f \in L^2 \colon f' \in L^2 }$.
+  $P_{max}$ is not symmetric and $\sig(P_{max}) = \CC$ with only eigenvalues.
+  Let $P_0 f = - i f'$ with  $D(P_0) = \qty{ f \in L^2 \colon f' \in L^2 f(0) = f(1) = 0 }$.
+  $P_0$ is symmetric.
+\end{example} 
+
+\begin{lemma} 
+  $\sig(P_0) = \CC$ has pure continuous spectrum.
+  $- i f' = z f f(x) = C e^{ixz} \Rightarrow \sig(P_{max}) = \CC$ 
+  but none of these solutions satisfy Dirichlet $\Rightarrow$ $P_0$ has no eigenvalue.
+  For $g = e^{i\overline{z}x}$, we have 
+  $$ \sp{g}{(P_0 - z)f} = \int_0^1 \overline{g}(t) [i f'(t) - z f(t)] dt = \int_0^1 \overline{(-i g'-\overline{z} g)}(t) f(t) dt = 0$$
+  This implies $z \in \sig(P_0)$ 
+  $P_0 - z$ cannot be onto ??: $\nexists f \in D(P_0)$ such that $(P_0 - z) f = g$ $\Rightarrow$ $\int_0^1 \abs{g}^2 = 0$, which is a contradiction.
+\end{lemma}
+
+\begin{theorem} 
+  The only self-adjoint realization of the momentum on $]0,1[$ are:
+  $P_{per,\theta} f = - i f'$ (Born-von Karman, BvK).
+  $D(P_{per,\theta}) = \qty{ f \in L^2 \colon f' \in L^2, f(1) = e^{i \theta} f(0) }$.
+  $\sig(P_{per,\theta}) = \theta + 2\pi \ZZ$ all of the eigenvalues with eigenfunctions $e^{i(\theta+2\pi k)x}$.
+\end{theorem}
+
+\begin{remark} 
+  $D(P_0) \subset D(P_{per,\theta}) \subset D(P_{max}) \ \forall \theta$ 
+\end{remark}
+
+\begin{remark}
+  $e_n(x) = \sqrt{2} \sin(\pi n x)$ with $n \ge 1$ 
+  and $e_n(0) = e_n(1) = 0 \ \forall n$ with $e_n \in D(P_0)$
+  $\Rightarrow$ the infinite matrix $\sp{e_n}{P_{per,\theta} e_m} = \sp{e_n}{P_0 e_m}$ is independent of $\theta$.
+\end{remark}
+
+\begin{theorem}[Momentum on the real line (2.37 in ML)]
+  There is only one self-adjoint realization of the momentum on $\RR$:
+  $P f = - i f'$ with $D(P) = \qty{ f \in L^2 \colon f' \in L^2 }$. 
+  The spectrum is $\sig(P) = \RR$ with no eigenvalue (pure continuous spectrum)
+\end{theorem}
+
+\begin{remark}
+  $-i f' = k f$ has solution $f = C e^{ikx} \ \forall k \in \CC$. 
+  When $k$ is real, $e^{ikx}$ is bounded it is not in $L^2$ ($\Rightarrow$ no eigenfunction)
+  Let $f_n(x) = \chi(x/n) e^{ikx}$, we have
+  $$\int_{-\infty}^{\infty} \abs{f_n}^2 = \int_{-\infty}^{\infty} \chi(x/n)^2 dx = n \int \chi^2$$
+  $g_n = f_n/\norm{f_n}^2$ are quasi-eigenfunctions.
+\end{remark}
+
+\begin{proof} 
+  We use Fourier: $\overline{P f}(k) = k \overline{f}(k)$
+  with $D(P) = \qty{ f \in L^2 \colon f' \in L^2 } = \qty{ f \in L^2 \colon k \hat{f} \in L^2 }$.
+  The only thing one has to do:
+  $\forall g \in L^2 \ \exists! f \in D(P)$ such that $-i f' \pm i f = g$ and $(k+i) \hat{f} = \hat{g}$.
+\end{proof}
+
+\begin{theorem} 
+  The only self-adjoint momentum on $\RR$ is
+  $P f = -i f'$ with $D(P) = \qty{f \in L^2(\RR) \colon f' \in L^2(\RR) }$
+  and $\sig(P) = \RR$ with no eigenvalue.
+\end{theorem} 
+
+\begin{proof} 
+  We do Fourier again: $\overline{-i f'}(k) = k \hat{f}(k)$ "multiplication operator".
+  For $z = -i$, we have $(P + i)f = g$, i.e. $(P + i)f = g$ $\Rightarrow$ $\hat{f} = \hat{g}/(k+i)$
+  \begin{align*}
+  	A - z \colon D(A) & \xrightarrow{\phantom{(A-z)^{-1}}} \cH \\
+                 D(A) & \xleftarrow{(A-z)^{-1}} \cH \\
+  \end{align*}
+
+  Because Fourier is unitary, $g \in L^2 \Leftrightarrow \hat{g} \in L^2$
+  and $\int \abs{g}^2 = \int \abs{\hat{g}}^2$.
+  $D(P) = \qty{ f \in L^2 \colon \exists \hat{g} \in L^2 \hat{f} = \hat{g}/(k+i) } = \qty{ f \in L^2 \colon k \hat{f} = - i f' \in L^2 }$.
+  The inverse is bounded: 
+  $ \norm{(P + i)^{-1} g}^2_{L^2} = \norm{\hat{(P+i)^{-1}g}}^2_{L^2} 
+  = \int \abs{\hat{g}(k)}^2/(k^2+1) dk \le \int \abs{\hat{g}(k)}^2 dk = \norm{g}^2_{L^2}$ with $C = 1$. 
+  This implies that $-i \in \rho(P)$ and the same derivation stands for $z=+i$.
+  $P$ is symmetric: $\sp{f}{Pg} = \int_\RR k \overline{\hat{f}(k)} \hat{g}(k) dk$
+  $\Rightarrow$ $P$ is self-adjoint (idea: Fourier diagonalizes $P$).
+\end{proof}
+
+\begin{remark}
+  For a potential $V$, $f \to V f$, we have
+  $D(V) = \qty{ f \in L^2 \colon V f \in L^2, \int V(x)^2 \abs{f(x)}^2 dx < \infty }$
+  and $\sig(V) = \Im(v)$.
+\end{remark}
+
+\begin{example}[momentum on half line $\RR_+ = [0,\infty[$]
+  Result: it does not exist!
+  $P_0 f = - i f'  D(P_0) = \qty{ f \in L^2 \colon f' \in L^2, f(0) = 0 }$
+  and $\sig(P_0) = \CC_-$
+\end{example}
+
+\begin{example}[kinetic energy = laplacian]
+  On $]0,1[$, there are many self-adjoint realizations (depending on the boundary conditions): Dirichlet, Neumann, periodic, etc.
+  On $\RR$, there is one self-adjoint $D(-\dv[2]{}{x}) = \qty{ f \in L^2 \colon f'' \in L^2 }$.
+  On $\RR^d$ with $d \in \qty{1,2,3}$, we have 
+  $D(-\Delta) = \qty{ f \in L^2 \colon \Delta f \in L^2 } = \qty{ f \in L^2 \colon |k|^2 \hat{f} \in L^2 }$
+\end{example}
+
+\begin{theorem}{Kato}
+  For the Schr\"odinger operators: $H = - \Delta + V$.
+  Assume that $V$ is itself $L^2$ locally and uniformally, i.e.,
+  $\int_{B(x_0,1)} V(x)^2 dx \le C \ \forall x_0 \in \RR^d$ [i.e., $V \in L^2_{unif}$]
+  Then, $H = - \Delta + V$ is self-adjoint on $D(-\Delta)$.
+\end{theorem}
+
+\begin{example}[hydrogen atom $d = 3$, $V(x) = -c/\abs{x}$]
+  $$ \sup_{x_0} c^2 \int_{B(0,1)} \frac{dx}{\abs{x-x_0}^2} = c^2 \int_{B(0,1)} \frac{dx}{\abs{x}^2} < \infty $$
+\end{example}
+
+\begin{proof}
+  Let $-\Delta + V +m^2$ with $m \gg 1$
+  $$ -\Delta + V +m^2 = (1 + V(-\Delta+m^2)^-1 ) (-\Delta + m^2) $$
+  One shows $\norm{V(-\Delta + m^2)^{-1}} < 1 if m \gg 1$
+  For $d = 3$, this operator has the kernel $K(x,y) = V(x) \frac{e^{-m\abs{x-y}}}{\abs{x-y}}$.
+  $(Kf)(x) = \int K(x,y) f(y) dy$ and 
+  $\norm{Kf}_{L^2} \le C_m \norm{f}_{L^2}$  ($C_m < 1$ when $m \gg 1$).
+\end{proof}
+  
+\begin{example}[Spectral theorem and continuous spectrum: $P_{per,0}$]
+    $P_{per,0}$ (the periodic momentum) is diagonal in the basis $e_k = e^{2i\pi kx}$ ($k \in \ZZ$)
+    $$ 1 = \sum_{k \in \ZZ} \dyad{e_k} $$
+    $$ P_{per,0} = \sum_{k \in \ZZ} 2\pi n \dyad{e_k} $$
+\end{example}
+
+\begin{example}[Spectral theorem and continuous spectrum: $P$]
+    $P$ (momentum in $\RR$) is diagonal in Fourier $e_k(x) = e^{ikx}/\sqrt{2\pi}$
+    $$ 1 = \int_\RR   \dyad{e_k} dk  \quad \text{(not well defined on $L^2$ but OK on nice functions)} $$
+    $$ P  = \int_\RR k \dyad{e_k} dk $$  
+    $f(x) = 1/\sqrt{2\pi} \int_\RR \sp{e_k}{f} e^{ikx} dk$ and
+    $\hat{f}(k) = \sp{e_k}{f} =  1/\sqrt{2\pi} \int_{\RR} f(x) e^{-ikx} dx$
+\end{example}
+
+\begin{example}[Spectral theorem and continuous spectrum: self-adjoint $A$]
+    $1 = \int \sum_n \dyad{\varphi_{E,n}} dE$ qith ($\varphi_E \in ??$) [($dE$ has to be replaced by $d\mu(E)$] (integration is on $\sig(A)$] 
+    And we also add multiplicities)
+ \end{example}
+
+\begin{example}[Laplacian in $\RR$]
+  $$ A = - \dv[2]{}{x} = \int_\infty^\infty k^2 \dyad{e_k} dk \quad (E = k^2) $$
+  $$ A = \int_0^\infty E (\dyad*{e_{\sqrt{E}}} + \dyad*{e_{-\sqrt{E}}} dE/(2\sqrt{E}) $$
+\end{example}
+
+\begin{theorem}
+  We set $d = 3$ and $H = - \Delta + V$.
+  We assume that $V$ is nice and decays fast (Coulomb not allowed).
+  Then, there exists eigenfunctions $f_1,\cdots,f_N$
+  and generalized eigenfunctions $\varphi_k(x)$, $k \in \RR^3$, $k^2 \notin \cE$ (a set of bad energies).
+  The $\varphi_k$'s are bounded functions $\varphi_k(x) \sim e^{ikx}$ ($\abs{x} \to \infty$)
+  and $(-\Delta + V)\varphi_k = k^2 \varphi_k$.
+  $$ 1 = \sum_{n=1}^N \dyad{f_n} + \int_\RR^3 \dyad{\varphi_k} dk $$
+  $$ H = \sum{\la_n \le 0} \la_n \dyad{f_n} + \int_{\RR^d} k^2 \dyad{\varphi_k} dk $$                                                                                      
+  This result follows from scattering theory.
+  Solve Lipmann-Schwinger equation
+  $$ \varphi_k(x) = e^{ikx} - \frac{1}{4\pi} \int e^{ik\abs{x-y}} \frac{V(y)}{\abs{x-y}} \varphi_k(y) dy $$
+  $(1 + K) \varphi_k = e^{ikx}$ (multiply by $\sqrt{V}$).
+  See Reed-Simon vol.~3 Thm X1.14 ($V \in L^1$).
+\end{theorem}
+
+\begin{theorem}
+  Assume that $d = \qty{1,2,3}$ and $\int_B(x0,1) V(x)^2 dx \le C \forall x0 \in \RR^d$ and
+  $H = -\Delta + V$ and $D(H) = D(-\Delta)$.
+  Then there exists a Borel measure $\mu$ on $\RR$ and a function 
+  $N \colon \RR -> \NN$ ($\mu$-mesurable) and functions $\varphi_{E,n}$ for $\mu$ almost every $E$  with $n=1,\ldots,N(E)$ such that 
+  $$ 1 = \int \sum_{n=1}^{N(E)} \dyad{\varphi_{E,n}} d\mu(E) $$
+  $$ H = \int E \sum_{n=1}^{N(E)}  \dyad{\varphi_{E,n}} d\mu(E) $$
+  $(-\Delta+V)\phi_{E,n} = E \phi_{E,n}$ with $\abs{\varphi_{E,n}} \le C_E (1 + |x|^{d/2+\epsilon})$.
+\end{theorem}
+
+\begin{theorem}[Simon "Schr\"odinger semi-groups", 1982]
+  If $\abs{\varphi(x)} \le C(1+\abs{x}^N)$ for any $N$ with $\varphi \neq 0$ 
+  such that $(-D + V) \varphi = E \varphi$, 
+  then $E \in \sigma(-\Delta+V)$.
+  (Result from Schnol 1953, rediscovered by Simon in 1981.)
+\end{theorem}
+
+\begin{remark}
+  $$1 = \int \sum_{n=1}^{N(E)} \dyad{\varphi_{n,E}} d\mu(E)$$ 
+  This defines a unitary operator $L^2(\RR^d) \simeq \bigoplus L^2(\RR,d\mu)$
+  with $f \in \Delta \colon \tilde{f}(n,E) = \sp{\varphi_{n,E}}{f}$
+  $$\int_{\RR^d} \abs{f}^2 = \int \sum_{n=1}^{N(E)} \abs{\tilde{f}(n,E)}^2 d\mu(E) $$
+\end{remark}
+
+\begin{theorem}
+  If $A$ is a self-adjoint operator on $\cH \subset \RR$, 
+  then there exists a measure $\mu$ on $\RR$ and sets $(M_n)_{n \ge 1}$ that are decreasing and a unitary 
+  $U \colon \cH \to \bigoplus_{n \ge 1} L^2(M_n,d\mu)$
+  such that $U A U*$ is $\tilde{f}(n,E) \to E \tilde{f}(n,E)$
+  \begin{itemize}
+    \item $N(E)$
+    \item formal generalized eigenfunctions in the new picture which are $\delta_{E,n}$ "$\varphi_{n,E} = U^-1 \delta_{E,n}$". 
+  \end{itemize}
+  General result by Poerschke-Stolz and Weidmann (1989).
+  $\varphi_{n,E} \in D(T)'$ (prime is for dual) if $T$ is so that $f(a) T^{-1}$ is Hilbert-Schmidt (where $f$ is any continuous bounded function).
+  $A = -\Delta + V$ with $T = (1+\NN^{d/2+\eps})$.
+\end{theorem}
+
+\begin{remark}
+  When we have diagonalize an operator $A$, we can define a function of the operator $f(A) = \int f(E)$. 
+  For example, $e^{itA} f(X) = e^{itX}$ with spectral projection: $f(x) = \II_{(\infty,E]} (x)$.
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{One-particle periodic problem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We are interested by the equation $-\nabla + V(x)$ when $V$ is periodic.
+\\
+
+\begin{remark} 
+  Let $V = 0$, and we consider $P$. 
+  The group of translation $(\RR,+)$ is acting on $L^2(\RR)$.
+  For $\tau \in \RR$, we have $x \to x + \tau$. $U_\tau \colon f(x) \to f(x-\tau)$.
+  Formally at least, $U_\tau P U_{-\tau} = P$ (the domain of $P$ is invariant under all the $U_\tau$)
+  $ \Rightarrow U_{\tau} e^{itP} U_{-\tau} = e^{itP}$ (see Chapter 4 of ML).
+\end{remark} 
+
+\begin{example}[Fourier]
+    $f(x+\tau) = \la(\tau)f(x) \forall x, \forall \tau$\\
+    $\la(\tau+\tau') = \la(\tau)\la(\tau')$ (it's a character)\\
+    $\la(\tau) = e^{\alpha \tau}$\\
+    $f(x+\tau) = e^{\alpha\tau} f(x) \forall x,\tau$\\
+    $f(x) = C e^{\alpha x} \alpha \in i\RR$\\
+\end{example}
+
+\begin{example}[1-Periodic]
+    subgroup $(\ZZ,+)$ (we only translate by integers)\\
+    $f(x+j) = \la(j)f(x) \forall j \in \ZZ \forall x \in \RR$\\
+    $\la(j+j') = \la(j)\la(j') => \la(j) = \la(0)^j = e^{\alpha j}$\\
+    $f(x+j) = e^{\alpha j} f(x)   \alpha = i \theta \in i\RR$\\
+    $f(x+j) = e^{i\theta j} f(x) \forall j \in \ZZ \forall x \in \RR$  (this is the BvK condition)\\
+\end{example}
+
+\begin{example} 
+  Let us consider $P$
+  $$ 1 = \frac{1}{2\pi} \int \dyad{e_k}{e_k} dk
+      = \frac{1}{2\pi} \int_{-\pi}^{\pi} \sum_{j\in\ZZ} \dyad{e_{\theta+2\pi j}{e_{\theta+2\pi j}}}   d\theta $$
+  with $e_k = e^{ikx}$ and $- \dv[2]{}{x} + V$ with $V$ is 1-periodic
+  We slice with respect to $\theta$ and we fix $\theta \colon - \dv[2]{}{x} + V$ on functions $f(x+1) = e^{i\theta} f(x) \forall x$
+  These are not in $L^2(\RR)$
+  We solve $(-\Delta+V)f = \la f$ for fixed $\theta$
+  $\Leftrightarrow$ solving on $]0,1[$ with the BvK $f(1) = e^{i\theta} f(0)$
+  $f'(x+1) = e^{i\theta} f'(x) \forall x$\\
+  $f'(1) = e^{i\theta}f'(0)$ [extra condition for 2nd-order differential equation]
+\end{example} 
+
+\begin{theorem} 
+  $\RR^d$ with $d=\{1,2,3\}$. 
+  We consider a lattice $\cL = \sum_{i=1}^d v_i$ where $(v_1,...,v_d)$ is a basis.
+  $C$ is the Wigner-Seitz cell (one possible choice of a unit cell) and is defined as $\qty{ x \in \RR \colon \abs{x} < \abs{x - k} \forall k \in \cL\{0\} }$.
+  $\cL*$ is the dual lattice equal to $2\pi \sum_i^d v_i^* \ZZ$.
+  $B$ is the Brillouin zone.
+
+  Let $V$ be a $\cL$-perodic potential. We assume $\int_C V(x)^2 dx < \infty$.
+  $H = -\Delta + V$ is self-adjoint on $D(-\Delta)$.
+  Let also $H(\xi) = -\Delta + V$ on $L^2(\CC)$ with BvK boundary condition [$\xi$ is a vector $(\xi_1,...,\xi_d)$].
+  This operator has an infinite many eigenvalues $\la_n(\xi) \to + \infty$ as $ n\to\infty$ with eigenfunctions $\varphi_{n,\xi}$.
+  $$ H = \frac{1}{\abs{B}} \int_B \sum_n \la_n(\xi) \dyad{\varphi_{n,\xi}} d\xi $$
+  $$ 1 = \frac{1}{\abs{B}} \int_B \sum_n \dyad{\varphi_{n,\xi}} d\xi $$
+  with $ \sig(H) = \cup_{n \ge 1} \la_n(B)$
+\end{theorem} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Many-body case}
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{References}
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{itemize}
+  \item Mathieu Lewin, \textit{Th\'eorie spectrale et mécanique quantique}, Springer, 2022.
+  \item Michael Reed \& Barry Simon, (4 volumes): Functional Analysis, Fourier Analysis \& Analysis of Operators.
+  \item Davies 1995 
+\end{itemize}
+
+\end{document}
+
+
