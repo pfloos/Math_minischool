@@ -6,6 +6,7 @@
 
 \newtheorem*{theorem}{Theorem}
 \newtheorem*{definition}{Definition}
+\newtheorem*{corollary}{Corollary}
 \newtheorem*{lemma}{Lemma}
 \newtheorem*{example}{Example}
 \newtheorem*{proposition}{Proposition}
@@ -489,108 +490,156 @@ We are interested by the equation $-\nabla + V(x)$ when $V$ is periodic.
   with $ \sig(H) = \cup_{n \ge 1} \la_n(B)$
 \end{theorem} 
 
-  Thm: $H = -\Delta +  V$ with $V$ a $\cL$-periodic pontential and bounded \int_C V^2 < \infty
-    (-\Delta +  V) f = \la V
-    The common generalized eigenfunctions of the \cL-translations are the functions which satisfies the BvK translations: 
-    f(x+\ell) = e^{i\xi.\ell} f(x) for some \xi \in B (where B is the Brillouin zone).
-    The Brillouin zone is the unit cell of the dual lattice.
-    We look for generalized eigenfunctions for a fixed \xi.
+\begin{theorem} 
+    $H = -\Delta +  V$ with $V$ a $\cL$-periodic pontential and bounded, i.e, $\int_C V^2 < \infty$
+    We have $(-\Delta +  V) f = \la V$.
+    The common generalized eigenfunctions of the $\cL$-translations are the functions which satisfies the BvK translations: 
+    $f(x+\ell) = e^{i\xi\cdot\ell} f(x)$ for some $\xi \in B$ (where $B$ is the Brillouin zone, i.e., the unit cell of the dual lattice).
+    We look for generalized eigenfunctions for fixed $\xi$.
     Thus, we can solve the equation only in the Brillouin zone.
     Therefore, we have only true eigencuntions with the BvK boundary condition.
-    Let H(\xi) be -De\lta + V in L^2(C) with the BvK boundary condition.
-    The spectrum of H(\xi) is 
-    \sig(\H(\xi)) = { \la_1(\xi) \le \le_2(\xi) \le ... } and \la_n(\xi) \to \infty when n \to \infty.
-    which are continious functions of \xi.
-    Let call \varphi_{n,\xi} the generalized eigenfunctions.
-    Id_{L^2(\RR^d)} = \frac{1}{|B|} \int_B \sum_n \dyad{\varphi_{n,\xi}} d\xi 
-    H = \frac{1}{|B|} \int_B \sum_n \la_n(\xi) \dyad{\varphi_{n,\xi}} d\xi 
-    \sig(H) = \bigcup_{n \ge 1} { \la_n(\xi) : \xi \in \bar{B} }
-    The union of the "Bloch" bands {\la_n(\xi), \xi \in \bar{B}A} is the spectrum.
-  
-  Proof: See Chapter 7 in the ML book
+    Let $H(\xi)$ be $-\Delta + V$ in $L^2(C)$ with the BvK boundary condition.
+    The spectrum of $H(\xi)$ is 
+    $\sig(H(\xi)) = \qty{ \la_1(\xi) \le \le_2(\xi) \le \cdots }$ and $\la_n(\xi) \to \infty$ when $n \to \infty$.
+    which are continious functions of $\xi$.
+    Let call $\varphi_{n,\xi}$ the generalized eigenfunctions.
+    $$ \II_{L^2(\RR^d)} = \frac{1}{\abs{B}} \int_B \sum_n \dyad{\varphi_{n,\xi}} d\xi $$
+    $$ H = \frac{1}{\abs{B}} \int_B \sum_n \la_n(\xi) \dyad{\varphi_{n,\xi}} d\xi $$
+    $$ \sig(H) = \bigcup_{n \ge 1} { \la_n(\xi) \colon \xi \in \bar{B} } $$
+    The union of the "Bloch" bands $\qty{ \la_n(\xi), \xi \in \bar{B} }$ is the spectrum.
+\end{theorem}
 
-  Fermi sea \& density of states:
+\begin{proof} 
+  See Chapter 7 in the ML book
+\end{proof}
+
+\begin{definition}[Fermi sea \& density of states]
   We put infinitely many electrons but non-interacting... Of course.
   Thermodynamic limit: 
-  -\Delta+V on \RR^d 
-  We consider a very large cube with hard wall (+\infty potential outisde the box).
-  We put N electrons on a box of length L: N \sim bar{\rho} L^d (\bar{\rho} fixed)
+  $-\Delta+V on \RR^d$
+  We consider a very large cube with hard wall ($+\infty$ potential outisde the box).
+  We put $N$ electrons on a box of length $L$: $N \sim \bar{\rho} L^d$ (with $\bar{\rho}$ fixed)
   Basically we use Dirichlet boundary condition but one can prove that the result would be the same with other boundary conditions such as periodic or Neumann.
-  Hamiltonian for N non-interacting electrons with no spin
-  H = \sum_j=1^N (-\ldeta + V)_{|C_L}(x_j) 
-  |C_L = restricted to cube of length L (Dirichlet)
-  \Psi = Slater determiannts on the N first eigenfunctions of (-\Delta + V)_{|C_L} 
-  \rho = N/L^d with N \to infty and L^d \to \infty
-  We rather look at the 1PDM 
-  \gamma_L = projection on the soace spanned by the N first eigenfunctions L^2(C_L)
+  Hamiltonian for $N$ non-interacting electrons with no spin
+  $$ H = \sum_j=1^N (-\delta + V)_{|C_L}(x_j) $$
+  where $|C_L$ means that we are restricted to the cube of length $L$ (Dirichlet).
+  The wave functions $\Psi$ are Slater determiants on the $N$ first eigenfunctions of $(-\Delta + V)_{|C_L}$
+  $\rho = N/L^d$ with $N \to infty$ and $L^d \to \infty$
+  We rather look at the one-particle density matrix.
+  $\gamma_L$ is projection on the space spanned by the $N$ first eigenfunctions $L^2(C_L)$
+\end{definition}
 
-  Thm: For \bar{\rho} given, \forall f \in L^2(\RR^d), \gamma_L \II_{C_L} f \to \II_{(-\infty,\eps_F]} (-\Delta+V) (this is the spectral projection) 
-    where \eps_F is so that the density of state is correct 
-    \bar{\rho} = \frac{1}{(\2pi)^d} \int_B \sum_{n \ge 1} \II(\la_n(\xi) \le \eps_F) d\xi
-    \bar{\rho} is the integrated density of state.
+\begin{theorem}
+  For $\bar{\rho}$ given, $\forall f \in L^2(\RR^d)$, the spectral projection is $\gamma_L \colon \II_{C_L} f \mapsto \II_{(-\infty,\eps_F]} (-\Delta+V)$, 
+    where the Fermi energy $\eps_F$ is so that the density of state is correct 
+    $$ \bar{\rho} = \frac{1}{(2\pi)^d} \int_B \sum_{n \ge 1} \II(\la_n(\xi) \le \eps_F) d\xi$$
+    $\bar{\rho}$ is the integrated density of state.
 
-    \gamma_{\infty} = \frac{1}{|B|} \II_{(-\infty,\eps_F}(-\Delta+V) 
-                    = \frac{1}{|B|} \int_B \sum_{n \ge 1} \II(\la_n(\xi) \le \eps_F) \dyad{\varphi_{n,\xi}} d\xi
+    $$ \gamma_{\infty} = \frac{1}{\abs{B}} \II_{(-\infty,\eps_F}(-\Delta+V) 
+                    = \frac{1}{\abs{B}} \int_B \sum_{n \ge 1} \II(\la_n(\xi) \le \eps_F) \dyad{\varphi_{n,\xi}} d\xi $$
     $\gamma_{\infty}$ is named the Fermi sea.
-    \rho_{\infty}(x) = \frac{1}{|B|} \int_B \sum_{n \ge 1} \II(\la_n(\xi) \le \eps_F) \abs{\varphi_{n,\xi}}^2 d\xi 
-    and $\rho_{\infty}(x)$ is \cL-periodic.
-    Often, one has an integed number of particle per cell, i.e., K electrons per unit cell
-    Therefore, \Bar{\rho} = \frac{K}{|C|}. Therefore, 
-    K = 1/|B| \int_B \sum_{n \ge 1} \II(\la_n(\xi) \le \esp_F) d\xi
-    Insulator: it costs something to add an electron 
-    Metal: it costs nothing to add an electron (gapless)
-    Due to Sommerfeld, Block and Bethe (at T = 0)
-    Shape of the \la_n(\xi) plays an important role in particular close to the Fermi level \eps_F
+    $$ \rho_{\infty}(x) = \frac{1}{\abs{B}} \int_B \sum_{n \ge 1} \II(\la_n(\xi) \le \eps_F) \abs{\varphi_{n,\xi}}^2 d\xi $$
+    and $\rho_{\infty}(x)$ is $\cL$-periodic.
+    Often, one has an integed number of particle per cell, i.e., $K$ electrons per unit cell
+    Therefore, $\Bar{\rho} = \frac{K}{\abs{C}}$. Therefore, 
+    $$ K = \frac{1}{\abs{B}} \int_B \sum_{n \ge 1} \II(\la_n(\xi) \le \eps_F) d\xi $$
+    Insulator: it costs something to add an electron.
+    Metal: it costs nothing to add an electron (gapless).
+    Due to Sommerfeld, Block and Bethe (at $T = 0$).
+    Shape of the $\la_n(\xi)$ plays an important role in particular close to the Fermi level $\eps_F$.
+\end{theorem}
     
-  Regularity of \la_n(\xi) and degeneracies.
-    H(\xi) = -\Delta+V with BvK boundary condition. 
-    By multipkying by e{i\xi \cdot x}, we have
-    \Tilde{H}(\xi) = |-i \nabla+\xi|^2 + V periodic boundary condition (\xi = 0)
+\begin{definition}[Regularity of $\la_n(\xi)$ and degeneracies]
+    $H(\xi) = -\Delta+V$ with BvK boundary condition. 
+    By multiplying by $e^{i\xi \cdot x}$, we have
+    $\Tilde{H}(\xi) = \abs{-i \nabla+\xi}^2 + V$ periodic boundary condition ($\xi = 0$)
     (it's like a magnetic gauge)
 
-    \Tilde{H}(\xi) = -\Delta + V + 2 P.\xi + |\xi|^2
-    2 P.\xi = linear perturbation
-    |\xi|^2 = trivial shift
+    $$ \Tilde{H}(\xi) = -\Delta + V + 2 P\cdot\xi + \abs{\xi}^2 $$
+    The term $2 P\cdot\xi$ is a linear perturbation while $\abs{\xi}^2$ is a trivial shift.
 
-    A + \xi.B = A + \sum_i \xi_i B_i
+    $$ A + \xi \cdot B = A + \sum_i \xi_i B_i $$
+\end{definition}
 
-    degeneracies for 2x2 matrices
-    d = 1
-    |\xi_1     0   | 
-    |  0    -\xi_1 |
-    Eigenvalues are \pm\xi_1
+\begin{example}[degeneracies for $2\times2$ matrices]
+    For $d = 1$, 
+    $$\begin{pmatrix}
+      \xi_1 &     0   \\
+      0    & -\xi_1 \\
+    \end{pmatrix}$$
+    Eigenvalues are $\pm\xi_1$.
     Even for a uniform matrix, the eigenvalues are not smooth.
 
-    d = 2
-    | \xi_1   \xi_2 |
-    | \xi_2  -\xi_1 |
-    Eigenvalues are \pm\sqrt{\xi_1^2 + \xi_2^2} (Dirac cone)
+    For $d = 2$,
+    $$\begin{pmatrix}
+      \xi_1 &  \xi_2 \\
+      \xi_2 & -\xi_1 \\
+    \end{pmatrix}$$
+    Eigenvalues are $\pm\sqrt{\xi_1^2 + \xi_2^2}$ (Dirac cone).
+\end{example}
 
-  Thm: 
-    We assume a regular (at least continuous) family of N \times N hermitian matrices A(\xi) (in \xi \in \RR^d) 
-    a,b \in \RR which are not in \sig(A(\xi_0))
-    Then a,b, are also not in \sig(A(\xi)) for \xi \sim \xi_0 and the spectral projection 
-    \II_{[a,b]}(A(\xi))  = \sum_{\la_n(\xi) \in [a,b] \dyad{v_{n,\xi}} has the same regularity as A.
+\begin{theorem}
+    We assume a regular (at least continuous) family of $N \times N$ hermitian matrices $A(\xi)$ (in $\xi \in \RR^d$). 
+    $a,b \in \RR$ which are not in $\sig(A(\xi_0))$.
+    Then $a,b$ are also not in $\sig(A(\xi))$ for $\xi \sim \xi_0$ and the spectral projection
+    $$\II_{[a,b]}(A(\xi))  = \sum_{\la_n(\xi) \in [a,b]} \dyad{v_{n,\xi}}$$ 
+    has the same regularity as $A$.
+\end{theorem}
+\begin{corollary}
+  $\la_n(\xi_0)$ is multiplicity one, then $\la_n(\xi)$ is also multiplicity one for $\xi \sim \xi_0$ and has the same regularity as $A$.
+\end{corollary}
 
-  Corollary: 
-    \la_n(\xi_0) is multiplicity one, then \la_n(\xi) is also multiplicity one for \xi \sim \xi_0 and has the same regularity as A.
+\begin{proof}[proof of the corollary] 
+  We choose $\la_n(\xi) \in [a,b]$.
+  One can show that $\la_n(\xi) = \Tr[A(\xi)\II_{[a,b]}(A(\xi))]$ is nice!
+\end{proof}  
 
-  proof of corollary: 
-  We choose \la_n(\xi) \in [a,b] 
-  \la_n(\xi) = \Tr[A(\xi)\II_{[a,b]}(A(\xi))] is nice!
-  
-  proof of theorem: 
-    A(\xi) - z = A(\xi_0) - z + A(\xi) - A(\xi_0) = (1 + (A(\xi) - A(\xi_0)) (A(\xi_0) - z)^{-1}) (A(\xi_0) - z)
-    We know that (A(\xi_0) - z) is invertible for z ~ a and z ~ b.
-    We know also that (A(\xi) - A(\xi_0)) is small by continuity arguments.
-    Therefore, A(\xi) - z is invertible.
+\begin{proof}[proof of the theorem] 
+    $A(\xi) - z = A(\xi_0) - z + A(\xi) - A(\xi_0) = (1 + (A(\xi) - A(\xi_0)) (A(\xi_0) - z)^{-1}) (A(\xi_0) - z)$
+    We know that $A(\xi_0) - z$ is invertible for $z \sim a$ and $z \sim b$.
+    We know also that $A(\xi) - A(\xi_0)$ is small by continuity arguments.
+    Therefore, $A(\xi) - z$ is invertible.
     
-    (A(\xi) - z)^{-1} = (A(\xi_0) - z)^{-1} (1 + B)^{-1} (regularuty for series)
+    $(A(\xi) - z)^{-1} = (A(\xi_0) - z)^{-1} (1 + B)^{-1}$ (regularity of series).
     The resolvent is as nice as the operator (where it is defined).
+\end{proof}  
  
-  Cauchy's formula: 
-  \II_{[a,b]} = \frac{1}{2\pi} \oint_{\cC} \frac{dz}{z-x}
-  => \II_{A(\xi)} = - \frac{1}{2\pi} \oint_{\cC} (A(\xi) - z)^{-1} dz
+\begin{definition}[Cauchy's formula] 
+  $$\II_{[a,b]} = \frac{1}{2\pi} \oint_{C} \frac{dz}{z-x}
+  \qq{$\Rightarrow$}  \II_{A(\xi)} = - \frac{1}{2\pi} \oint_{C} \qty[A(\xi) - z]^{-1} dz$$
+\end{definition}
+
+\begin{theorem}{One-dimensional degeneracies}
+    if you order things properly, the eigenvalues are smooth (analytical actually).
+    $A(\xi)$ is analytic in $\xi$ (i.e. the Taylor series is convergent).
+    $\la = \la_n(\xi_0)$ is degenerate of multiplicity $m$.
+    Then for $\xi \sim \xi_0$ the spectrum of $A(\xi)$ in the neighbourhood of $\la$ consistes of m analytic functions which coincide at $\xi_0$.
+    Theorem due to Rellich. Proof in Reed-Simon vol 4 Thm XII.3.
+\end{theorem}
+
+\begin{remark}
+  Analiticity is special. 
+  For example, it is wrong for $C^2$ functions.
+\end{remark}
+
+%    
+%  2D degeneracies
+%  We look at family of matrices that depends on two parameters.
+%  \Tilde{H}(\xi) = |-i \nabla+\xi|^2 + V
+%  If \cL is invariant under some rotation R, \Tilde{H}(R\xi) = U_R \Tilde{H}(\xi) U_R^*
+%  The Hamiltonian \Tilde{H}(\xi) is unitarily equivalent to $\Tilde{H}(R\xi)$.
+%  The two Hamiltonians are unitarily equivalent is one rotates \xi as well.
+%
+%  Thm: A(\xi) \subset C^1 family of 2x2 hermitian matrices and \xi \in \RR^2.
+%  I assume \exists \theta \in ]0,2\pi[\{\pi} and R is the associated rotation acting on \RR^2.
+%  If assume A(R\xi) = U(\xi) A(\xi) U(\xi)^* \forall \xi
+%  U(\xi) is continuous.
+%  We assume that there is a degeneracy somewhere: A(0) = 0
+%  Then, \exists unitary matrix V such taht A(\xi) = \delta V (...) V^* + o(|\xi|)
+% 
+%  ... = | \xi_1  \xi_2  |
+%        | \xi_2  -\xi_1 |
+%
 
 
 
