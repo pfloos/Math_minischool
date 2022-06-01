@@ -237,7 +237,8 @@ A bit of history about the spectral theory in infinite dimension...
   For $g = e^{i\overline{z}x}$, we have 
   $$ \sp{g}{(P_0 - z)f} = \int_0^1 \overline{g}(t) [i f'(t) - z f(t)] dt = \int_0^1 \overline{(-i g'-\overline{z} g)}(t) f(t) dt = 0$$
   This implies $z \in \sig(P_0)$ 
-  $P_0 - z$ cannot be onto ??: $\nexists f \in D(P_0)$ such that $(P_0 - z) f = g$ $\Rightarrow$ $\int_0^1 \abs{g}^2 = 0$, which is a contradiction.
+  $P_0 - z$ cannot be "onto" (surjective): $\nexists f \in D(P_0)$ such that $(P_0 - z) f = g$ $\Rightarrow$ $\int_0^1 \abs{g}^2 = 0$, which is a contradiction.
+  (bijection: one-to-one).
 \end{lemma}
 
 \begin{theorem} 
@@ -487,6 +488,111 @@ We are interested by the equation $-\nabla + V(x)$ when $V$ is periodic.
   $$ 1 = \frac{1}{\abs{B}} \int_B \sum_n \dyad{\varphi_{n,\xi}} d\xi $$
   with $ \sig(H) = \cup_{n \ge 1} \la_n(B)$
 \end{theorem} 
+
+  Thm: $H = -\Delta +  V$ with $V$ a $\cL$-periodic pontential and bounded \int_C V^2 < \infty
+    (-\Delta +  V) f = \la V
+    The common generalized eigenfunctions of the \cL-translations are the functions which satisfies the BvK translations: 
+    f(x+\ell) = e^{i\xi.\ell} f(x) for some \xi \in B (where B is the Brillouin zone).
+    The Brillouin zone is the unit cell of the dual lattice.
+    We look for generalized eigenfunctions for a fixed \xi.
+    Thus, we can solve the equation only in the Brillouin zone.
+    Therefore, we have only true eigencuntions with the BvK boundary condition.
+    Let H(\xi) be -De\lta + V in L^2(C) with the BvK boundary condition.
+    The spectrum of H(\xi) is 
+    \sig(\H(\xi)) = { \la_1(\xi) \le \le_2(\xi) \le ... } and \la_n(\xi) \to \infty when n \to \infty.
+    which are continious functions of \xi.
+    Let call \varphi_{n,\xi} the generalized eigenfunctions.
+    Id_{L^2(\RR^d)} = \frac{1}{|B|} \int_B \sum_n \dyad{\varphi_{n,\xi}} d\xi 
+    H = \frac{1}{|B|} \int_B \sum_n \la_n(\xi) \dyad{\varphi_{n,\xi}} d\xi 
+    \sig(H) = \bigcup_{n \ge 1} { \la_n(\xi) : \xi \in \bar{B} }
+    The union of the "Bloch" bands {\la_n(\xi), \xi \in \bar{B}A} is the spectrum.
+  
+  Proof: See Chapter 7 in the ML book
+
+  Fermi sea \& density of states:
+  We put infinitely many electrons but non-interacting... Of course.
+  Thermodynamic limit: 
+  -\Delta+V on \RR^d 
+  We consider a very large cube with hard wall (+\infty potential outisde the box).
+  We put N electrons on a box of length L: N \sim bar{\rho} L^d (\bar{\rho} fixed)
+  Basically we use Dirichlet boundary condition but one can prove that the result would be the same with other boundary conditions such as periodic or Neumann.
+  Hamiltonian for N non-interacting electrons with no spin
+  H = \sum_j=1^N (-\ldeta + V)_{|C_L}(x_j) 
+  |C_L = restricted to cube of length L (Dirichlet)
+  \Psi = Slater determiannts on the N first eigenfunctions of (-\Delta + V)_{|C_L} 
+  \rho = N/L^d with N \to infty and L^d \to \infty
+  We rather look at the 1PDM 
+  \gamma_L = projection on the soace spanned by the N first eigenfunctions L^2(C_L)
+
+  Thm: For \bar{\rho} given, \forall f \in L^2(\RR^d), \gamma_L \II_{C_L} f \to \II_{(-\infty,\eps_F]} (-\Delta+V) (this is the spectral projection) 
+    where \eps_F is so that the density of state is correct 
+    \bar{\rho} = \frac{1}{(\2pi)^d} \int_B \sum_{n \ge 1} \II(\la_n(\xi) \le \eps_F) d\xi
+    \bar{\rho} is the integrated density of state.
+
+    \gamma_{\infty} = \frac{1}{|B|} \II_{(-\infty,\eps_F}(-\Delta+V) 
+                    = \frac{1}{|B|} \int_B \sum_{n \ge 1} \II(\la_n(\xi) \le \eps_F) \dyad{\varphi_{n,\xi}} d\xi
+    $\gamma_{\infty}$ is named the Fermi sea.
+    \rho_{\infty}(x) = \frac{1}{|B|} \int_B \sum_{n \ge 1} \II(\la_n(\xi) \le \eps_F) \abs{\varphi_{n,\xi}}^2 d\xi 
+    and $\rho_{\infty}(x)$ is \cL-periodic.
+    Often, one has an integed number of particle per cell, i.e., K electrons per unit cell
+    Therefore, \Bar{\rho} = \frac{K}{|C|}. Therefore, 
+    K = 1/|B| \int_B \sum_{n \ge 1} \II(\la_n(\xi) \le \esp_F) d\xi
+    Insulator: it costs something to add an electron 
+    Metal: it costs nothing to add an electron (gapless)
+    Due to Sommerfeld, Block and Bethe (at T = 0)
+    Shape of the \la_n(\xi) plays an important role in particular close to the Fermi level \eps_F
+    
+  Regularity of \la_n(\xi) and degeneracies.
+    H(\xi) = -\Delta+V with BvK boundary condition. 
+    By multipkying by e{i\xi \cdot x}, we have
+    \Tilde{H}(\xi) = |-i \nabla+\xi|^2 + V periodic boundary condition (\xi = 0)
+    (it's like a magnetic gauge)
+
+    \Tilde{H}(\xi) = -\Delta + V + 2 P.\xi + |\xi|^2
+    2 P.\xi = linear perturbation
+    |\xi|^2 = trivial shift
+
+    A + \xi.B = A + \sum_i \xi_i B_i
+
+    degeneracies for 2x2 matrices
+    d = 1
+    |\xi_1     0   | 
+    |  0    -\xi_1 |
+    Eigenvalues are \pm\xi_1
+    Even for a uniform matrix, the eigenvalues are not smooth.
+
+    d = 2
+    | \xi_1   \xi_2 |
+    | \xi_2  -\xi_1 |
+    Eigenvalues are \pm\sqrt{\xi_1^2 + \xi_2^2} (Dirac cone)
+
+  Thm: 
+    We assume a regular (at least continuous) family of N \times N hermitian matrices A(\xi) (in \xi \in \RR^d) 
+    a,b \in \RR which are not in \sig(A(\xi_0))
+    Then a,b, are also not in \sig(A(\xi)) for \xi \sim \xi_0 and the spectral projection 
+    \II_{[a,b]}(A(\xi))  = \sum_{\la_n(\xi) \in [a,b] \dyad{v_{n,\xi}} has the same regularity as A.
+
+  Corollary: 
+    \la_n(\xi_0) is multiplicity one, then \la_n(\xi) is also multiplicity one for \xi \sim \xi_0 and has the same regularity as A.
+
+  proof of corollary: 
+  We choose \la_n(\xi) \in [a,b] 
+  \la_n(\xi) = \Tr[A(\xi)\II_{[a,b]}(A(\xi))] is nice!
+  
+  proof of theorem: 
+    A(\xi) - z = A(\xi_0) - z + A(\xi) - A(\xi_0) = (1 + (A(\xi) - A(\xi_0)) (A(\xi_0) - z)^{-1}) (A(\xi_0) - z)
+    We know that (A(\xi_0) - z) is invertible for z ~ a and z ~ b.
+    We know also that (A(\xi) - A(\xi_0)) is small by continuity arguments.
+    Therefore, A(\xi) - z is invertible.
+    
+    (A(\xi) - z)^{-1} = (A(\xi_0) - z)^{-1} (1 + B)^{-1} (regularuty for series)
+    The resolvent is as nice as the operator (where it is defined).
+ 
+  Cauchy's formula: 
+  \II_{[a,b]} = \frac{1}{2\pi} \oint_{\cC} \frac{dz}{z-x}
+  => \II_{A(\xi)} = - \frac{1}{2\pi} \oint_{\cC} (A(\xi) - z)^{-1} dz
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 \section{Many-body case}
